@@ -1,0 +1,145 @@
+import os
+from modelos import Item, productos # Asumo que Item y productos están definidos aquí
+
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
+
+# ... (Las funciones filtrar_por_precio, filtrar_por_id, filtrar_por_fecha y filtrado permanecen igual) ...
+
+# 2. Función para ordenar la lista de productos 🔄
+def ordenar():
+    clear()
+    print("|====================|")
+    print("====== ORDENAR PRODUCTOS ======")
+    
+    # Validación: productos existente
+    if not productos:
+        print("No hay productos cargados para ordenar. 😥")
+        input("\nPresiona Enter para continuar...")
+        return
+        
+    opc_criterio = 0
+    while opc_criterio not in [1, 2]:
+        print("\nOrdenar por:")
+        print("1. Nombre (Alfabético) 🔤")
+        print("2. Precio (Numérico) 💰")
+        try:
+            opc_criterio = int(input("\n--> Selecciona el criterio de ordenación: "))
+        except ValueError:
+            print("\nERROR: Debes ingresar un número (1 o 2). 😅")
+
+    opc_sentido = 0
+    while opc_sentido not in [1, 2]:
+        print("\nSentido de la ordenación:")
+        print("1. Ascendente (A-Z, Menor a Mayor) ⬆️")
+        print("2. Descendente (Z-A, Mayor a Menor) ⬇️")
+        try:
+            opc_sentido = int(input("\n--> Selecciona el sentido: "))
+        except ValueError:
+            print("\nERROR: Debes ingresar un número (1 o 2). 😅")
+
+    # Definir la clave (key) y el sentido (reverse)
+    if opc_criterio == 1:
+        criterio = "nombre"
+    else: # opc_criterio == 2
+        criterio = "precio"
+        
+    sentido_descendente = (opc_sentido == 2)
+    
+    # Realizar la ordenación. Usamos sorted() para no modificar la lista original si no es necesario.
+    # Pero si la intención es modificar la lista global 'productos', usaríamos productos.sort()
+    
+    # Opción 1: Crear una nueva lista ordenada (sin modificar la global 'productos')
+    # productos_ordenados = sorted(productos, key=lambda p: getattr(p, criterio), reverse=sentido_descendente)
+    
+    # Opción 2: Ordenar la lista global 'productos' inplace (modifica la lista original)
+    productos.sort(key=lambda p: getattr(p, criterio), reverse=sentido_descendente)
+    
+    print("\n✅ ¡Productos ordenados! Mostrando el resultado:\n")
+    
+    for item in productos:
+        try:
+            # Intenta usar la representación __str__ de la clase Item
+            print(item) 
+        except:
+            # Si falla por alguna razón, usa un formato simple
+            print(f"{item.nombre} - ${item.precio}")
+
+    input("\nPresiona Enter para continuar...")
+
+# ... (Las funciones borrar y Rubros_menu también permanecen igual) ...
+def borrar():
+    print("Función borrar en Rubros.py")
+
+
+def filtrado():
+    opc = 1
+    clear()
+
+    while opc != 0:
+        print("|====================|")
+        print("===== MENÚ FILTRADO =====")
+        print("1. Por Precio 💰")
+        print("2. Por ID de Producto #️⃣")
+        print("3. Por Fecha de Caducidad 🗓️")
+        print("0. Volver al Menú Principal 🔙")
+
+        try:
+            opc = int(input("\n--> Selecciona una opción: "))
+        except ValueError:
+            clear()
+            print("|====================|")
+            print("ERROR: Debes ingresar un número. 😅\n")
+            continue
+
+        clear()
+        print("|====================|")
+        print(f"-----> OPCIÓN {opc} <-----\n")
+
+        match opc:
+            case 1:
+                filtrar_por_precio() # Llama a la función que acabamos de usar
+            case 2:
+                filtrar_por_id() # Pendiente por tu equipo
+            case 3:
+                filtrar_por_fecha() # Pendiente por tu equipo
+            case 0:
+                print("-----> VOLVIENDO AL MENÚ PRINCIPAL <-----")
+            case _:
+                print("-----> OPCIÓN NO DISPONIBLE <-----")
+
+def Rubros_menu():
+    opc = 1
+    clear()
+
+    while opc != 0:
+        print("|====================|")
+        print("===== MENU =====")
+        print("1. Filtrado")
+        print("2. Ordenar")
+        print("3. Borrar")
+        print("0. Salir")
+
+        try:
+            opc = int(input("\n--> "))
+        except ValueError:
+            clear()
+            print("|====================|")
+            print("ERROR: Debes ingresar un número.\n")
+            continue 
+
+        clear()
+        print("|====================|")
+        print(f"-----> OPCIÓN {opc} <-----\n")
+
+        match opc:
+            case 1:
+                filtrado()
+            case 2:
+                ordenar()
+            case 3:
+                borrar()
+            case 0:
+                print("-----> SALIENDO <-----")
+            case _:
+                print("-----> OPCIÓN NO DISPONIBLE <-----")

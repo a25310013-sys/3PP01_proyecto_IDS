@@ -59,10 +59,10 @@ def filtrado():
     while opc != 0:
         print("|====================|")
         print("===== MENÚ FILTRADO =====")
-        print("1. Por Precio 💰")
-        print("2. Por ID de Producto #️⃣")
-        print("3. Por Fecha de Caducidad 🗓️")
-        print("0. Volver al Menú Principal 🔙")
+        print("1.- Por Precio 💰")
+        print("2.- Por ID de Producto #️⃣")
+        print("3.- Por Fecha de Caducidad 🗓️")
+        print("0.- Volver al Menú Principal 🔙")
 
         try:
             opc = int(input("\n--> Selecciona una opción: "))
@@ -104,17 +104,17 @@ def Rubros_menu():
     while opc != 0:
         print("|====================|")
         print("===== MENU =====")
-        print("1. Filtrado")
-        print("2. Ordenar")
-        print("3. Borrar")
-        print("0. Salir")
+        print("1.- Filtrado")
+        print("2.- Ordenar")
+        print("3.- Borrar")
+        print("0.- Salir")
 
         try:
             opc = int(input("\n--> "))
         except ValueError:
             clear()
             print("|====================|")
-            print("ERROR: Debes ingresar un número.\n")
+            print("ERROR: Debes ingresar almenos un número.\n")
             continue
 
         clear()

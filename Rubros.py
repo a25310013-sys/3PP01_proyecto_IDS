@@ -113,12 +113,12 @@ def Rubros_menu():
             opc = int(input("\n--> "))
         except ValueError:
             clear()
-            print("|====================|")
+            print("|===================|")
             print("ERROR: Debes ingresar un número.\n")
             continue
 
         clear()
-        print("|====================|")
+        print("|===================|")
         print(f"-----> OPCIÓN {opc} <-----\n")
 
         match opc:
